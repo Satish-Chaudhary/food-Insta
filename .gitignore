@@ -1,5 +1,35 @@
-backend/.env
-backend/node_modules
-backend/.env.example
-backend/package-lock.json
-backend/package.json
+
+# Node modules
+node_modules/
+**/node_modules/
+
+# Environment files
+.env
+*.env
+
+# Frontend
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+
+# Logs
+logs
+*.log
+
+# Coverage
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Build outputs
+dist/
+build/
+
+# MongoDB local files
+/data/db/
