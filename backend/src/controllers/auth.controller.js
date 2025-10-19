@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 
 
-// User Authentication controllers
+// User Authentication APIs controllers
 async function registerUser(req, res) {
 
     const { fullName, email, password } = req.body;
@@ -78,7 +78,7 @@ function logoutUser(req, res) {
     })
 }
 
-// Food Partner Authentication controllers
+// Food Partner Authentication APIs controllers
 
 async function foodPartnerRegister(req, res) {
     const { fullName, email, password } = req.body;
