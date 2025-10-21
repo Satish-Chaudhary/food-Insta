@@ -1,6 +1,6 @@
 const express = require("express");
-const foodController = require("../controllers/food.controller");
-const authMiddleware = require("../middleware/auth.middleware");
+const {createFood,getFoodItems} = require("../controllers/food.controller");
+const { foodPartnerMiddleawre, userMiddleawre, } = require("../middleware/auth.middleware");
 const router = express.Router();
 const multer = require("multer");
 
@@ -15,7 +15,10 @@ const upload = multer({
 // route ko protected karne ke liye "foodMiddleware.foodPartnerMiddleawre" setup karenge.
 
 // *Food* /api/food [protected]
-router.post("/",authMiddleware.foodPartnerMiddleawre,upload.single("video"),foodController.createFood);
+router.post("/",foodPartnerMiddleawre, upload.single("video"),createFood);
+
+// *Food* /api/food [protected]
+router.get("/",userMiddleawre,getFoodItems);
 
 
 module.exports = router;
