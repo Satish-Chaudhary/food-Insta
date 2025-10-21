@@ -4,13 +4,17 @@ const { v4: uuid } = require("uuid");
 
 async function createFood(req, res) {
 
-    console.log(req.foodPartner);
-    console.log(req.body);
-    console.log(req.file);
     const uploadFileResult = await uploadFile(req.file.buffer, uuid());
-    
-    console.log(uploadFileResult);
-    res.send("food item created");
+    const foodItem = await foodModel.create({
+        name: req.body.name,
+        description: req.body.description,
+        video: uploadFileResult.url,
+        foodpartner: req.foodpartner._id,
+    })
+    res.status(201).json({
+        message: "Food Item Created Successfully",
+        food: foodItem
+    })
     
 }
 module.exports = {
