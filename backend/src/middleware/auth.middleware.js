@@ -11,7 +11,7 @@ async function foodPartnerMiddleawre(req, res, next) {
         })
     }
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRECT_KEY);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
         const foodPartner = await foodPartnerModel.findById(decoded.id);
         req.foodPartner = foodPartner;
@@ -34,7 +34,7 @@ async function userMiddleawre(req, res, next) {
         })
     }
     try{
-        const decoded = jwt.verify(token, process.env.JWT_SECRECT_KEY);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
         const user = await userModel.findById(decoded.id);
         req.user = user;
