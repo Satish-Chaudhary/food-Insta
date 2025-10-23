@@ -81,7 +81,7 @@ function logoutUser(req, res) {
 // Food Partner Authentication APIs controllers
 
 async function foodPartnerRegister(req, res) {
-    const { fullName, email, password,contactName,phoneNumber,address  } = req.body;
+    const { businessName, email, password,contactName,phoneNumber,address  } = req.body;
 
     const isUserAlreadyexist = await foodPartnerModel.findOne({ email });
 
@@ -93,7 +93,7 @@ async function foodPartnerRegister(req, res) {
     const hashPassword = await bcrypt.hash(password, 10);
 
     const foodPartner = await foodPartnerModel.create({
-        fullName,
+        businessName,
         email,
         password: hashPassword,
         contactName,
@@ -107,11 +107,14 @@ async function foodPartnerRegister(req, res) {
 
     res.cookie("token", token);
     res.status(201).json({
-        message: "User Registered Successfully",
+        message: "Food Partner Registered Successfully",
         foodPartner: {
             _id: foodPartner._id,
-            fullName: foodPartner.fullName,
+            businessName: foodPartner.businessName,
             email: foodPartner.email,
+            contactName: foodPartner.contactName,
+            phoneNumber: foodPartner.phoneNumber,
+            address: foodPartner.address,
         }
     })
 }
@@ -143,7 +146,7 @@ async function foodPartnerLogin(req, res) {
         message: "foodPartner login Successfully",
         foodPartner: {
             id: foodPartner._id,
-            fullName: foodPartner.fullName,
+            businessName: foodPartner.businessName,
             email: foodPartner.email,
         }
 

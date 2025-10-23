@@ -7,24 +7,27 @@ import { useNavigate } from 'react-router-dom'
 
 const UserRegister = () => {
 
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
-        const navigate = useNavigate();
+
         e.preventDefault();
+        console.log(e);
         const firstName = e.target.firstName.value;
         const lastName = e.target.lastName.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
 
-        const response = await axios.post("http:localhost:3000/api/auth/user/register",{
-            firstName: firstName+" "+lastName,
+        const response = await axios.post("http://localhost:3000/api/auth/user/register", {
+            firstName: firstName + " " + lastName,
             email,
-            password, 
-        },{
+            password,
+        }, {
             withCredentials: true,
         })
         console.log(response.data);
-        
+
         navigate("/");
+
     }
     return (
         <>
@@ -38,27 +41,27 @@ const UserRegister = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="row-2">
                             <div className="col">
-                                <label>First name</label>
-                                <input type="text" placeholder="Jane" />
+                                <label name='firstName'>First name</label>
+                                <input name='firstName' type="text" placeholder="Jane" />
                             </div>
                             <div className="col">
-                                <label>Last name</label>
-                                <input type="text" placeholder="Doe" />
+                                <label name='lastName'>Last name</label>
+                                <input name='lastName' type="text" placeholder="Doe" />
                             </div>
                         </div>
 
                         <div>
-                            <label>Email</label>
-                            <input type="email" placeholder="you@example.com" />
+                            <label name='email'>Email</label>
+                            <input name='email' type="email" placeholder="you@example.com" />
                         </div>
 
                         <div>
-                            <label>Password</label>
-                            <input type="password" placeholder="Create password" />
+                            <label name='password'>Password</label>
+                            <input name='password' type="password" placeholder="Create password" />
                         </div>
 
                         <div className="actions">
-                            <button type="button" className="btn cta">Sign Up</button>
+                            <button type="submit" className="btn cta">Sign Up</button>
                         </div>
 
                         <div className="footer small">Already have an account? <Link to="/user/login">Sign in</Link></div>
