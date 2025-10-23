@@ -1,8 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../styles/auth.css'
+import '../../styles/auth.css'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 
 const UserRegister = () => {
+
+    const handleSubmit = async (e) => {
+        const navigate = useNavigate();
+        e.preventDefault();
+        const firstName = e.target.firstName.value;
+        const lastName = e.target.lastName.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        const response = await axios.post("http:localhost:3000/api/auth/user/register",{
+            firstName: firstName+" "+lastName,
+            email,
+            password, 
+        },{
+            withCredentials: true,
+        })
+        console.log(response.data);
+        
+        navigate("/");
+    }
     return (
         <>
             <div className="auth-shell">
@@ -12,7 +35,7 @@ const UserRegister = () => {
 
                     <div className="switch-links"><span className="small">Switch:</span><Link to="/user/register" className="inactive">User</Link><Link to="/foodpartner/register">Food partner</Link></div>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="row-2">
                             <div className="col">
                                 <label>First name</label>

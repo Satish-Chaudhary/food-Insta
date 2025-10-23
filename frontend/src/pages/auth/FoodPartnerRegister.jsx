@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../styles/auth.css'
+import '../../styles/auth.css'
 
 const FoodPartnerRegister = () => {
     return (
