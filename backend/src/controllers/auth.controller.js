@@ -1,13 +1,13 @@
 const { userModel, loginModel } = require("../models/user.model");
 const { foodPartnerModel, foodPartnerLoginModel } = require("../models/foodPartner.model");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 
 // User Authentication APIs controllers
 async function registerUser(req, res) {
 
-    const { fullName, email, password} = req.body;
+    const { fullName, email, password } = req.body;
 
     const isUserAlreayExist = await userModel.findOne({ email });
 
@@ -81,7 +81,7 @@ function logoutUser(req, res) {
 // Food Partner Authentication APIs controllers
 
 async function foodPartnerRegister(req, res) {
-    const { businessName, email, password,contactName,phoneNumber,address  } = req.body;
+    const { businessName, email, password, contactName, phoneNumber, address } = req.body;
 
     const isUserAlreadyexist = await foodPartnerModel.findOne({ email });
 
@@ -160,6 +160,35 @@ function foodPartnerLogout(req, res) {
     })
 }
 
+async function getFoodPartnerById (req, res) {
+    try {
+        const { id } = req.params;
+        const foodPartner = await foodPartnerModel.findById(id);
+
+        if (!foodPartner) {
+            return res.status(404).json({
+                message: "Food partner not found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Food partner fetched successfully",
+            foodPartner: {
+                _id: foodPartner._id,
+                businessName: foodPartner.businessName,
+                email: foodPartner.email,
+                contactName: foodPartner.contactName,
+                phoneNumber: foodPartner.phoneNumber,
+                address: foodPartner.address
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching food partner:", error);
+        res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+}
 
 module.exports = {
     registerUser,
@@ -168,4 +197,5 @@ module.exports = {
     foodPartnerRegister,
     foodPartnerLogin,
     foodPartnerLogout,
+    getFoodPartnerById,
 }

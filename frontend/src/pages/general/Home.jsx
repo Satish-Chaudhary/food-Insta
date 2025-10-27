@@ -133,7 +133,7 @@ const Home = () => {
             <p className="reel-description">
               {item.description || item.name}
             </p>
-            <Link to={`/food-partner/${item._id}`} className="visit-store-btn" aria-label='Visit Store'>Visit Store</Link>
+            <Link to={`/foodpartner/${item._id}`} className="visit-store-btn" aria-label='Visit Store'>Visit Store</Link>
           </div>
         </div>
       ))}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../config/api';
 import '../../styles/profile.css';
+import axios from "axios";
 
 const Profile = () => {
   const { id } = useParams();
@@ -14,13 +15,16 @@ const Profile = () => {
     const fetchProfileData = async () => {
       try {
         // Fetch food partner data
-        const partnerResponse = await api.get(`/food/food-partner/${id}`);
+        const partnerResponse = await api.get(`/auth/foodpartner/${id}`);
         setFoodPartner(partnerResponse.data.foodPartner);
-        
+        console.log('Food Partner Data:', partnerResponse.data.foodPartner);
+
         // Fetch foods by this food partner
-        const foodsResponse = await api.get(`/food/food?foodpartner=${id}`);
+        const foodsResponse = await api.get(`/food?foodpartner=${id}`);
         setFoods(foodsResponse.data.foodItems);
-        
+
+        console.log('Foods by this food partner:', foodsResponse.data.foodItems);
+
         setLoading(false);
       } catch (err) {
         setError('Failed to load profile data');
@@ -28,8 +32,7 @@ const Profile = () => {
         console.error('Error fetching profile data:', err);
       }
     };
-    console.log(fetchProfileData());
-    
+
 
     if (id) {
       fetchProfileData();
@@ -97,7 +100,7 @@ const Profile = () => {
           <div className="videos-grid">
             {foods.map((food) => (
               <div key={food._id} className="video-card">
-                <video 
+                <video
                   className="video-thumbnail"
                   src={food.video}
                   muted
@@ -119,5 +122,4 @@ const Profile = () => {
     </div>
   );
 };
-
 export default Profile;
